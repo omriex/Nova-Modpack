@@ -151,8 +151,7 @@ const NV_BOT_MODE_PRESETS = {
     cord: {
       x: 0,
       y: 0
-    },
-  legit: { attack: 1, blocker: 0, cord: { x: 0, y: 0 }, futen: 3, futmy: 0, boosted: 0, name: "mope.io", speed: 2.15, angen: 2, angmy: 0, bp: 0, tdist: 2.5, angdelta: Math.PI * 0.9, angmin: Math.PI / 2, bas: 0, ping: 0.35, jump: 1, angstat: Math.PI / 3 },
+    }, futen: 3, futmy: 0, boosted: 0, name: "mope.io", speed: 2.15, angen: 2, angmy: 0, bp: 0, tdist: 2.5, angdelta: Math.PI * 0.9, angmin: Math.PI / 2, bas: 0, ping: 0.35, jump: 1, angstat: Math.PI / 3 },
     futen: 3,
     futmy: 0,
     boosted: 0,
@@ -171,7 +170,7 @@ const NV_BOT_MODE_PRESETS = {
   }
 };
 function nvGetBotModePreset(mode) {
-  return NV_BOT_MODE_PRESETS[(["anti-bot", "legit"].includes(mode) ? mode : "attack")] || NV_BOT_MODE_PRESETS.attack;
+  return NV_BOT_MODE_PRESETS[(["anti-bot"].includes(mode) ? mode : "attack")] || NV_BOT_MODE_PRESETS.attack;
 }
 function nvApplyBotModeToMY(mode) {
   const preset = nvGetBotModePreset(mode);
@@ -189,9 +188,9 @@ function nvApplyBotModeToMY(mode) {
   if (nickInput && nickInput.value) {
     MY.name = nickInput.value;
   }
-  NV_CURRENT_BOT_MODE = (["anti-bot", "legit"].includes(mode) ? mode : "attack");
+  NV_CURRENT_BOT_MODE = (["anti-bot"].includes(mode) ? mode : "attack");
   return NV_CURRENT_BOT_MODE;
-  return (["anti-bot", "legit"].includes(mode) ? mode : "attack");
+  return (["anti-bot"].includes(mode) ? mode : "attack");
 }
 let obs = [];
 function deepClone(_0x4191f8, _0x26f15e) {
@@ -42053,112 +42052,6 @@ const a0_0x2e3cbd = {
           __botLastSend = now;
           let _0xattackPos = attackf(_0x9052ea);
         
-        window.__legitBotState = window.__legitBotState || { mode: 'aggress', nextSwitch: 0, noiseOffset: 0, targetX: window.plobs?.nx || 0, targetY: window.plobs?.ny || 0, boostTimer: 0 };
-        
-        if (window.NovapackValues?.botMode === 'legit' && window.plobs && _0x9052ea) {
-            let now = Date.now();
-            let state = window.__legitBotState;
-            let me = window.plobs;
-            let enemy = _0x9052ea;
-            
-            let tX = me.nx, tY = me.ny;
-            let dx = enemy.nx - me.nx;
-            let dy = enemy.ny - me.ny;
-            let dist = Math.sqrt(dx*dx + dy*dy);
-            let combinedRad = me.nRad + enemy.nRad;
-            
-            let angleToEnemy = Math.atan2(dy, dx);
-            let myTailAngle = me.angle - Math.PI;
-            let enemyFaceAngle = (enemy.nAngle !== undefined ? enemy.nAngle : enemy.angle);
-            let enemyTailAngle = enemyFaceAngle - Math.PI;
-            
-            // Calculate Threats & Opportunities
-            let myTailDiff = Math.abs(Math.atan2(Math.sin(angleToEnemy - myTailAngle), Math.cos(angleToEnemy - myTailAngle)));
-            let enemyToMeAngle = angleToEnemy + Math.PI;
-            let enemyTailDiff = Math.abs(Math.atan2(Math.sin(enemyToMeAngle - enemyTailAngle), Math.cos(enemyToMeAngle - enemyTailAngle)));
-            
-            let isDanger = (dist < combinedRad * 3.5) && (myTailDiff < Math.PI / 2.2); // Enemy near tail
-            let isOpportunity = (dist < combinedRad * 4.0) && (enemyTailDiff < Math.PI / 2.5); // Enemy tail exposed
-            
-            let lerpSpeed = 0.25; // Default human-like smoothing
-            let shouldBoost = false;
-
-            if (isDanger) {
-                // OVERRIDE: Protect tail at all costs
-                tX = enemy.nx;
-                tY = enemy.ny;
-                lerpSpeed = 0.8; // Instant snap
-                
-                // Defensive boost if extremely close
-                if (dist < combinedRad * 1.8) {
-                    shouldBoost = true;
-                }
-            } else if (isOpportunity) {
-                // OVERRIDE: Counter Attack!
-                let predictDist = enemy.nRad * 1.5;
-                tX = enemy.nx + Math.cos(enemyTailAngle) * predictDist;
-                tY = enemy.ny + Math.sin(enemyTailAngle) * predictDist;
-                lerpSpeed = 0.6; // Snappy targeting
-                
-                // Offensive auto-boost to secure the bite
-                if (dist < combinedRad * 2.8) {
-                    shouldBoost = true;
-                }
-            } else {
-                // NORMAL STATE MACHINE (Aggress, Defend, Bait)
-                if (now > state.nextSwitch) {
-                    let r = Math.random();
-                    if (r < 0.5) state.mode = 'aggress';
-                    else if (r < 0.8) state.mode = 'defend';
-                    else state.mode = 'bait';
-                    
-                    state.nextSwitch = now + 150 + Math.random() * 400; // Paced for 1v1
-                    state.noiseOffset = (Math.random() - 0.5) * 1.2;
-                }
-                
-                if (state.mode === 'aggress') {
-                    // Try to wrap around to the enemy's tail, slightly offset by noise
-                    let wrapAngle = enemyTailAngle + (state.noiseOffset > 0 ? 0.8 : -0.8);
-                    let targetDist = enemy.nRad * 1.5;
-                    tX = enemy.nx + Math.cos(wrapAngle) * targetDist;
-                    tY = enemy.ny + Math.sin(wrapAngle) * targetDist;
-                    
-                } else if (state.mode === 'defend') {
-                    // PROPER DEFENSE: Face enemy and waggle ~25 degrees left and right
-                    let waggleOffset = Math.sin(now / 60) * (Math.PI / 7);
-                    let defendAngle = angleToEnemy + waggleOffset;
-                    tX = me.nx + Math.cos(defendAngle) * 150;
-                    tY = me.ny + Math.sin(defendAngle) * 150;
-                    
-                } else if (state.mode === 'bait') {
-                    // Move perpendicular to bait a bad turn
-                    let perpAngle = angleToEnemy + (Math.PI / 2) * Math.sign(state.noiseOffset || 1);
-                    tX = me.nx + Math.cos(perpAngle) * 200;
-                    tY = me.ny + Math.sin(perpAngle) * 200;
-                }
-            }
-            
-            // Execute Boost (Cooldown managed)
-            if (shouldBoost && now > state.boostTimer) {
-                if (typeof window.__nvGameBoost === 'function') {
-                    window.__nvGameBoost(true);
-                    setTimeout(() => window.__nvGameBoost(false), 50);
-                }
-                state.boostTimer = now + 600; // 600ms cooldown
-            }
-            
-            // Failsafe
-            if(Math.abs(tX - state.targetX) > 1500) { 
-                state.targetX = me.nx; 
-                state.targetY = me.ny; 
-            }
-            
-            state.targetX += (tX - state.targetX) * lerpSpeed; 
-            state.targetY += (tY - state.targetY) * lerpSpeed;
-            
-            _0xattackPos = { x: state.targetX, y: state.targetY };
-        }
-        
         if (_0xattackPos && Number.isFinite(_0xattackPos.x) && Number.isFinite(_0xattackPos.y)) {
             _0x448947 = _0xattackPos.x; _0x3bff98 = _0xattackPos.y; window.botTargetWorldX = _0xattackPos.x; window.botTargetWorldY = _0xattackPos.y;
             mes = new _0x225b1f(5);
@@ -47279,7 +47172,7 @@ function installDamageNumbers() {
                         <div class="nv-bot-mode-switch" id="nvBotModeSwitch">
                           <button type="button" class="nv-bot-mode-btn active" data-bot-mode="attack">Attack</button>
                           <button type="button" class="nv-bot-mode-btn" data-bot-mode="anti-bot">Anti-bot</button>
-                          <button type="button" class="nv-bot-mode-btn" data-bot-mode="legit">Legit</button>
+                          
                         </div>
                       </div>
 
@@ -49489,7 +49382,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
           try { _0xnovaRenderPartyChat(); } catch (_0xerror) { }
 
           function getCurrentBotMode() {
-            return (["anti-bot", "legit"].includes(window.NovapackValues?.botMode) ? window.NovapackValues?.botMode : "attack");
+            return (["anti-bot"].includes(window.NovapackValues?.botMode) ? window.NovapackValues?.botMode : "attack");
           }
 
           function getCurrentBotPreset() {
@@ -49531,7 +49424,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
           }
 
           function setBotMode(mode, options = {}) {
-            const safeMode = (["anti-bot", "legit"].includes(mode) ? mode : "attack");
+            const safeMode = (["anti-bot"].includes(mode) ? mode : "attack");
             window.NovapackValues.botMode = safeMode;
             const preset = typeof nvGetBotModePreset === "function" ? nvGetBotModePreset(safeMode) : getCurrentBotPreset();
             window.NovapackValues.botSpeed = Number(preset.speed ?? 2.15);
@@ -50919,16 +50812,16 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const hideButton = document.getElementById("nvMenuHideBtn");
 
             const NV_TAB_META = {
-              "tab-game": { icon: "⚔", eng: "Combat", russ: "Бой" },
-              "tab-skins": { icon: "🧩", eng: "Skins", russ: "Скины" },
-              "tab-arena": { icon: "🏃", eng: "Movement", russ: "Движение" },
-              "tab-customization": { icon: "👤", eng: "Player", russ: "Игрок" },
-              "tab-visuals": { icon: "🎨", eng: "Render", russ: "Рендер" },
-              "tab-keybinds": { icon: "⌨", eng: "Keybinds", russ: "Клавиши" },
-              "tab-misc": { icon: "⚙", eng: "Misc", russ: "Разное" },
-              "tab-party": { icon: "👥", eng: "Party", russ: "Пати" },
-              "tab-themes": { icon: "🎭", eng: "Themes", russ: "Темы" },
-              "tab-bot": { icon: "🤖", eng: "Bot", russ: "Бот" }
+              "tab-game": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m14.5 17.5 3 3a2.12 2.12 0 0 0 3-3l-3-3\"/><path d=\"m13 19-3-3\"/><path d=\"m16 16-3-3\"/><path d=\"m19 13-3-3\"/><path d=\"m21 21-1-1\"/><path d=\"m3 3 18 18\"/><path d=\"M9.5 6.5 6.5 9.5 2 5l1.5-1.5L5 2l4.5 4.5Z\"/></svg>", eng: "Combat", russ: "Бой" },
+              "tab-skins": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611c-.471.47-1.088.706-1.705.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18-.894-.527-.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568c-.47-.47-.706-1.087-.706-1.704s.235-1.233.706-1.704l1.611-1.611a.98.98 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.61-1.611c.471-.47 1.088-.706 1.705-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z\"/></svg>", eng: "Skins", russ: "Скины" },
+              "tab-arena": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 8h1a4 4 0 0 1 0 8h-1\"/><path d=\"M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z\"/><line x1=\"6\" y1=\"1\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"1\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"1\" x2=\"14\" y2=\"4\"/></svg>", eng: "Movement", russ: "Движение" },
+              "tab-customization": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>", eng: "Player", russ: "Игрок" },
+              "tab-visuals": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"13.5\" cy=\"6.5\" r=\".5\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/></svg>", eng: "Render", russ: "Рендер" },
+              "tab-keybinds": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\" ry=\"2\"/><path d=\"M6 8h.001\"/><path d=\"M10 8h.001\"/><path d=\"M14 8h.001\"/><path d=\"M18 8h.001\"/><path d=\"M8 12h.001\"/><path d=\"M12 12h.001\"/><path d=\"M16 12h.001\"/><path d=\"M7 16h10\"/></svg>", eng: "Keybinds", russ: "Клавиши" },
+              "tab-misc": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>", eng: "Misc", russ: "Разное" },
+              "tab-party": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/></svg>", eng: "Party", russ: "Пати" },
+              "tab-themes": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"/><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"/></svg>", eng: "Themes", russ: "Темы" },
+              "tab-bot": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 8V4H8\"/><rect x=\"4\" y=\"8\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg>", eng: "Bot", russ: "Бот" }
             };
             const NV_UI_TEXT = {
               eng: {
@@ -51365,7 +51258,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   border-radius:11px;
                   font-size: 14px;
                   color: #fff;
-                  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 72%, #fff 28%), color-mix(in srgb, var(--primary-2) 78%, #fff 22%));
+                  background: transparent 72%, #fff 28%), color-mix(in srgb, var(--primary-2) 78%, #fff 22%));
                   box-shadow: 0 12px 28px color-mix(in srgb, var(--glow) 64%, transparent);
                   flex: 0 0 auto;
                 }
@@ -52062,7 +51955,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const brand = document.createElement("div");
             brand.className = "nv-header-brand";
             brand.innerHTML = `
-              <div class="nv-header-logo">◆</div>
+              <div class="nv-header-logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><circle cx="50" cy="50" r="48" fill="#0c0c0c" stroke="#333" stroke-width="2"/><path d="M50 15 Q50 45 15 50 Q50 55 50 85 Q50 55 85 50 Q50 45 50 15 Z" fill="#fff"/><circle cx="50" cy="50" r="12" fill="#fff" filter="blur(3px)" opacity="0.6"/><circle cx="30" cy="30" r="1.5" fill="#fff" opacity="0.8"/><circle cx="70" cy="25" r="1.2" fill="#fff" opacity="0.9"/><circle cx="25" cy="70" r="1" fill="#fff" opacity="0.7"/><circle cx="75" cy="75" r="1.5" fill="#fff" opacity="0.8"/><circle cx="15" cy="45" r="1" fill="#fff" opacity="0.5"/><circle cx="85" cy="55" r="1.2" fill="#fff" opacity="0.6"/><circle cx="45" cy="15" r="0.8" fill="#fff" opacity="0.8"/><circle cx="55" cy="85" r="1" fill="#fff" opacity="0.7"/></svg></div>
               <div class="nv-brand-copy">
                 <div class="nv-brand-title"></div>
                 <div class="nv-brand-subtitle"></div>
