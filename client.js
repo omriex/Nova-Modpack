@@ -152,8 +152,7 @@ const NV_BOT_MODE_PRESETS = {
       x: 0,
       y: 0
     },
-  legit: { attack: 1, blocker: 0, cord: { x: 0, y: 0 }, futen: 3, futmy: 0, boosted: 0, name: "mope.io", speed: 2.15, angen: 2, angmy: 0, bp: 0, tdist: 2.5, angdelta: Math.PI * 0.9, angmin: Math.PI / 2, bas: 0, ping: 0.35, jump: 1, angstat: Math.PI / 3 },
-    futen: 3,
+  futen: 3,
     futmy: 0,
     boosted: 0,
     name: "mope.io",
@@ -50814,16 +50813,16 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const hideButton = document.getElementById("nvMenuHideBtn");
 
             const NV_TAB_META = {
-              "tab-game": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 17.5L16 16"/></svg>', eng: "Combat", russ: "Бой" },
-              "tab-skins": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>', eng: "Skins", russ: "Скины" },
-              "tab-arena": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M13 4v16M17 8l-4-4-4 4M17 16l-4 4-4-4"/></svg>', eng: "Movement", russ: "Движение" },
-              "tab-customization": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>', eng: "Player", russ: "Игрок" },
-              "tab-visuals": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20z"/><path d="M2 12h20"/></svg>', eng: "Render", russ: "Рендер" },
-              "tab-keybinds": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M3 5h18v14H3zM7 9h.01M12 9h.01M17 9h.01M7 13h.01M12 13h.01M17 13h.01M10 17h4"/></svg>', eng: "Keybinds", russ: "Клавиши" },
-              "tab-misc": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>', eng: "Misc", russ: "Разное" },
-              "tab-party": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', eng: "Party", russ: "Пати" },
-              "tab-themes": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>', eng: "Themes", russ: "Темы" },
-              "tab-bot": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16v.01M16 16v.01"/></svg>', eng: "Bot", russ: "Бот" }
+              "tab-game": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 17.5L16 16"/></svg>`, eng: "Combat", russ: "Бой" },
+              "tab-skins": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`, eng: "Skins", russ: "Скины" },
+              "tab-arena": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`, eng: "Movement", russ: "Движение" },
+              "tab-customization": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`, eng: "Player", russ: "Игрок" },
+              "tab-visuals": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`, eng: "Render", russ: "Рендер" },
+              "tab-keybinds": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6" y2="8"></line><line x1="10" y1="8" x2="10" y2="8"></line><line x1="14" y1="8" x2="14" y2="8"></line><line x1="18" y1="8" x2="18" y2="8"></line><line x1="8" y1="12" x2="8" y2="12"></line><line x1="12" y1="12" x2="12" y2="12"></line><line x1="16" y1="12" x2="16" y2="12"></line><line x1="7" y1="16" x2="17" y2="16"></line></svg>`, eng: "Keybinds", russ: "Клавиши" },
+              "tab-misc": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`, eng: "Misc", russ: "Разное" },
+              "tab-party": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`, eng: "Party", russ: "Пати" },
+              "tab-themes": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`, eng: "Themes", russ: "Темы" },
+              "tab-bot": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`, eng: "Bot", russ: "Бот" }
             };
             const NV_UI_TEXT = {
               eng: {
@@ -51957,13 +51956,12 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const brand = document.createElement("div");
             brand.className = "nv-header-brand";
             brand.innerHTML = `
-              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
+              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">` + 
+`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
                     <rect width="100" height="100" fill="#09090b"/>
                     <path d="M50 8 C50 35, 65 50, 92 50 C65 50, 50 65, 50 92 C50 65, 35 50, 8 50 C35 50, 50 35, 50 8 Z" fill="#fff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.9))"/>
-                    <!-- Background starburst glowing rays -->
                     <path d="M50 20 L55 45 L80 50 L55 55 L50 80 L45 55 L20 50 L45 45 Z" fill="rgba(255,255,255,0.4)" filter="blur(2px)"/>
                     <path d="M50 28 L53 47 L72 50 L53 53 L50 72 L47 53 L28 50 L47 47 Z" fill="rgba(255,255,255,0.6)" filter="blur(1px)"/>
-                    <!-- Ambient cosmic stars -->
                     <circle cx="20" cy="20" r="1.5" fill="#fff" opacity="0.6"/>
                     <circle cx="80" cy="25" r="2" fill="#fff" opacity="0.8"/>
                     <circle cx="25" cy="80" r="1" fill="#fff" opacity="0.5"/>
@@ -51972,7 +51970,8 @@ animation: novaGlow 4200ms ease-in-out infinite;
                     <circle cx="15" cy="60" r="1.5" fill="#fff" opacity="0.9"/>
                     <circle cx="35" cy="25" r="1" fill="#fff" opacity="0.6"/>
                     <circle cx="65" cy="75" r="1.2" fill="#fff" opacity="0.8"/>
-                </svg></div>
+                </svg>` + 
+`</div>
               <div class="nv-brand-copy">
                 <div class="nv-brand-title"></div>
                 <div class="nv-brand-subtitle"></div>
@@ -53834,9 +53833,7 @@ function _0xnovaSchedulePartyThemeRefresh() {
             overflow-x: hidden !important;
         }
 
-        body .nv-header-logo { 
-            display: none !important; 
-        }
+        body .nv-header-logo { display: flex !important; }
         
         body .nv-brand-subtitle {
             display: none !important;
@@ -53929,9 +53926,7 @@ function _0xnovaSchedulePartyThemeRefresh() {
             transform: translateX(4px) !important;
         }
         
-        body .tab-button .nv-tab-icon { 
-            display: none !important; 
-        }
+        body .tab-button .nv-tab-icon { display: flex !important; align-items: center; justify-content: center; margin-right: 8px; background: transparent !important; border: none !important; box-shadow: none !important; }
 
         body #nvMenuRoot.nv-menu-v2 .control-item,
         body #nvMenuRoot.nv-menu-v2 .control-item-vertical,
