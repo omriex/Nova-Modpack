@@ -50618,7 +50618,8 @@ animation: novaGlow 4200ms ease-in-out infinite;
                 break;
               case 29: window.NovapackValues.damageNumbersToggle = element.classList.contains('active'); break;
               case 30: window.NovapackValues.dynamicHealthColorsToggle = element.classList.contains('active'); break;
-              case 31: window.NovapackValues.movementPredictionToggle = element.classList.contains(\'active\'); break;\n              case 32: window.NovapackValues.opponentWaterBarToggle = element.classList.contains(\'active\'); break;
+              case 31: window.NovapackValues.movementPredictionToggle = element.classList.contains('active'); break;
+              case 32: window.NovapackValues.opponentWaterBarToggle = element.classList.contains('active'); break;
               default:
                 break;
             }
@@ -51961,8 +51962,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const brand = document.createElement("div");
             brand.className = "nv-header-brand";
             brand.innerHTML = `
-              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">` + 
-`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
+              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
                     <rect width="100" height="100" fill="#09090b"/>
                     <path d="M50 8 C50 35, 65 50, 92 50 C65 50, 50 65, 50 92 C50 65, 35 50, 8 50 C35 50, 50 35, 50 8 Z" fill="#fff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.9))"/>
                     <path d="M50 20 L55 45 L80 50 L55 55 L50 80 L45 55 L20 50 L45 45 Z" fill="rgba(255,255,255,0.4)" filter="blur(2px)"/>
@@ -51975,8 +51975,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                     <circle cx="15" cy="60" r="1.5" fill="#fff" opacity="0.9"/>
                     <circle cx="35" cy="25" r="1" fill="#fff" opacity="0.6"/>
                     <circle cx="65" cy="75" r="1.2" fill="#fff" opacity="0.8"/>
-                </svg>` + 
-`</div>
+                </svg></div>
               <div class="nv-brand-copy">
                 <div class="nv-brand-title"></div>
                 <div class="nv-brand-subtitle"></div>
