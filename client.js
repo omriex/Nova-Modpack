@@ -14047,37 +14047,6 @@ const a0_0x2e3cbd = {
         this.drawBar("rgb(255, 96, 0)", this.infectionBarA, this.infectionPer, 2, 6.5);
       }
     };
-
-
-    _0x205beb.prototype.drawWaterBar = function () {
-      if (this.flag_underWater || !window.NovapackValues?.opponentWaterBarToggle) return;
-      let waterVal = 100;
-      let hasWater = false;
-      const isMe = (window.myplayer && this.id === window.myplayer.id) || (typeof _0xd722e0 !== 'undefined' && this.id === _0xd722e0);
-      if (isMe) {
-          waterVal = typeof WATER_PERCENTAGE !== 'undefined' ? WATER_PERCENTAGE : 100;
-          hasWater = true;
-      } else if (typeof this.water !== 'undefined') {
-          waterVal = this.water;
-          hasWater = true;
-      } else if (typeof this.apexWaterPer !== 'undefined' && this.apexWaterPer > 0) {
-          waterVal = this.apexWaterPer;
-          hasWater = true;
-      }
-      if (!hasWater || waterVal >= 100) {
-          this.waterBarA = Math.max(0, (this.waterBarA || 0) - 0.04);
-      } else {
-          this.waterBarA = Math.min(1, (this.waterBarA || 0) + 0.04);
-      }
-      if ((this.waterBarA || 0) > 0.001) {
-          this.dispWaterPer = ((this.dispWaterPer || waterVal) + waterVal) * 0.5;
-          let barYOffset = 6.5; 
-          if (this.infectionBarA > 0.01) {
-              barYOffset += 4;
-          }
-          this.drawBar("rgb(0, 162, 255)", this.waterBarA, this.dispWaterPer, 2, barYOffset);
-      }
-    };
     _0x205beb.prototype.drawUnderWater = function () {
       if (this.flag_usingDiveAbility || this.flag_underWater || this.flag_usingAbility && this.animalType == 0x6) {
         MAIN_CANVAS.save();
@@ -47195,6 +47164,7 @@ function installDamageNumbers() {
                       <div class="toggle-switch switch-15">
                         <div class="toggle-knob"></div>
                       </div>
+                    </div>
                     <div class="control-item">
                       <div>
                         <p class="control-label">Вода противника</p>
@@ -47203,7 +47173,6 @@ function installDamageNumbers() {
                       <div class="toggle-switch switch-32">
                         <div class="toggle-knob"></div>
                       </div>
-                    </div>
                     </div>
                   </div>
 
@@ -50865,6 +50834,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   "FPS Limit",
                   "Arena Progress Outside",
                   "Opponent Lava Bar",
+                  "Opponent Water Bar",
                   "Enable Bot",
                   "Bot Cursor",
                   "Bot Jumps",
@@ -50916,6 +50886,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   "Лимит FPS",
                   "Прогресс арены снаружи",
                   "Лава противника",
+                  "Вода противника",
                   "Включить бота",
                   "Курсор бота",
                   "Прыжки бота",
@@ -50969,6 +50940,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   "Set a limit to your FPS",
                   "Show arena progress always",
                   "Show Opponents Lava Bar",
+                  "Show Opponent Water Bar",
                   "Turn ON/OFF Bot",
                   "Creates a bot cursor that follows the bot's path",
                   "Activates bot jumps",
@@ -51962,7 +51934,8 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const brand = document.createElement("div");
             brand.className = "nv-header-brand";
             brand.innerHTML = `
-              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
+              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">` + 
+`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
                     <rect width="100" height="100" fill="#09090b"/>
                     <path d="M50 8 C50 35, 65 50, 92 50 C65 50, 50 65, 50 92 C50 65, 35 50, 8 50 C35 50, 50 35, 50 8 Z" fill="#fff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.9))"/>
                     <path d="M50 20 L55 45 L80 50 L55 55 L50 80 L45 55 L20 50 L45 45 Z" fill="rgba(255,255,255,0.4)" filter="blur(2px)"/>
@@ -51975,7 +51948,8 @@ animation: novaGlow 4200ms ease-in-out infinite;
                     <circle cx="15" cy="60" r="1.5" fill="#fff" opacity="0.9"/>
                     <circle cx="35" cy="25" r="1" fill="#fff" opacity="0.6"/>
                     <circle cx="65" cy="75" r="1.2" fill="#fff" opacity="0.8"/>
-                </svg></div>
+                </svg>` + 
+`</div>
               <div class="nv-brand-copy">
                 <div class="nv-brand-title"></div>
                 <div class="nv-brand-subtitle"></div>
