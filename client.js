@@ -10869,6 +10869,7 @@ const a0_0x2e3cbd = {
       }
       MAIN_CANVAS.restore();
       this.drawInfectionBar();
+      if(typeof this.drawWaterBar === "function") this.drawWaterBar();
     };
     _0x4d38fd.prototype.apexWaterA = 0;
     _0x4d38fd.prototype.apexWaterPer = 0;
@@ -14031,6 +14032,7 @@ const a0_0x2e3cbd = {
     _0x205beb.prototype.drawHealthBar = function () {
       _0x205beb.superClass.prototype.drawHealthBar.call(this);
       this.drawInfectionBar();
+      if(typeof this.drawWaterBar === "function") this.drawWaterBar();
     };
 
 
@@ -14043,6 +14045,37 @@ const a0_0x2e3cbd = {
       if (this.infectionBarA > 0.001) {
         this.infectionPer += (this.lava - this.infectionPer) * 0.1;
         this.drawBar("rgb(255, 96, 0)", this.infectionBarA, this.infectionPer, 2, 6.5);
+      }
+    };
+
+
+    _0x205beb.prototype.drawWaterBar = function () {
+      if (this.flag_underWater || !window.NovapackValues?.opponentWaterBarToggle) return;
+      let waterVal = 100;
+      let hasWater = false;
+      const isMe = (window.myplayer && this.id === window.myplayer.id) || (typeof _0xd722e0 !== 'undefined' && this.id === _0xd722e0);
+      if (isMe) {
+          waterVal = typeof WATER_PERCENTAGE !== 'undefined' ? WATER_PERCENTAGE : 100;
+          hasWater = true;
+      } else if (typeof this.water !== 'undefined') {
+          waterVal = this.water;
+          hasWater = true;
+      } else if (typeof this.apexWaterPer !== 'undefined' && this.apexWaterPer > 0) {
+          waterVal = this.apexWaterPer;
+          hasWater = true;
+      }
+      if (!hasWater || waterVal >= 100) {
+          this.waterBarA = Math.max(0, (this.waterBarA || 0) - 0.04);
+      } else {
+          this.waterBarA = Math.min(1, (this.waterBarA || 0) + 0.04);
+      }
+      if ((this.waterBarA || 0) > 0.001) {
+          this.dispWaterPer = ((this.dispWaterPer || waterVal) + waterVal) * 0.5;
+          let barYOffset = 6.5; 
+          if (this.infectionBarA > 0.01) {
+              barYOffset += 4;
+          }
+          this.drawBar("rgb(0, 162, 255)", this.waterBarA, this.dispWaterPer, 2, barYOffset);
       }
     };
     _0x205beb.prototype.drawUnderWater = function () {
@@ -43101,6 +43134,7 @@ const a0_0x2e3cbd = {
       outboundTranslationLanguage: "en",
       underwaterAnimalsToggle: false,
       opponentLavaBarToggle: false,
+      opponentWaterBarToggle: false,
       arenaProgressAlwaysToggle: false,
       hideLogoToggle: false,
       uiLanguage: "eng",
@@ -47161,6 +47195,15 @@ function installDamageNumbers() {
                       <div class="toggle-switch switch-15">
                         <div class="toggle-knob"></div>
                       </div>
+                    <div class="control-item">
+                      <div>
+                        <p class="control-label">Вода противника</p>
+                        <p class="control-description">Показывает полоску воды противника</p>
+                      </div>
+                      <div class="toggle-switch switch-32">
+                        <div class="toggle-knob"></div>
+                      </div>
+                    </div>
                     </div>
                   </div>
 
@@ -47559,54 +47602,14 @@ function installDamageNumbers() {
               </div>
 
               <div id="party" class="tab-content" style="display: none;">
-                <div class="party-card">
-                  <div class="party-card-header">
-                    <div>
-                      <p class="control-label">Private Party</p>
-                      <p class="control-description">Create a private key and invite only mod users connected to your server</p>
-                    </div>
-                    <div id="partyStatusBadge" class="party-status-badge">Not in party</div>
-                  </div>
-
-                  <div class="party-info-grid">
-                    <div class="party-info-box">
-                      <p class="control-label">Status</p>
-                      <p class="control-description" id="partyStatusText">Not in party</p>
-                    </div>
-                    <div class="party-info-box">
-                      <p class="control-label">Members</p>
-                      <p class="control-description" id="partyMembersText">—</p>
-                    </div>
-                  </div>
-
-                  <div class="party-key-box">
-                    <div style="flex:1; min-width:0;">
-                      <p class="control-label">Created Party Key</p>
-                      <p class="control-description" id="partyCurrentKey">—</p>
-                    </div>
-                    <button id="copyPartyKeyBtn" class="party-action-btn party-secondary-btn">Copy</button>
-                  </div>
-
-                  <div class="party-actions-row">
-                    <button id="createPartyBtn" class="party-action-btn">Create Party</button>
-                    <button id="leavePartyBtn" class="party-action-btn party-danger-btn" style="display:none;">Leave Party</button>
+                <div class="party-card" style="display:flex;align-items:center;justify-content:center;height:250px;text-align:center;flex-direction:column;gap:12px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:54px;height:54px;opacity:0.8;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  <div>
+                    <h2 style="margin:0 0 4px 0;font-size:18px;color:var(--text);font-weight:800;">Party System Under Construction</h2>
+                    <p style="margin:0;font-size:13px;color:var(--text-muted);font-weight:500;">We are currently reworking this feature to make it better.</p>
                   </div>
                 </div>
-
-                <div class="party-card" style="margin-top:16px;">
-                  <div style="width:100%;">
-                    <p class="control-label">Party Key</p>
-                    <p class="control-description">Paste a private key to join an existing party</p>
-                    <div class="party-join-row">
-                      <input id="partyKeyInput" class="party-key-input" type="text" placeholder="Enter Party Key">
-                      <button id="joinPartyBtn" class="party-action-btn">Join Party</button>
-                    </div>
-                    <p class="control-description" id="partyJoinMessage" style="margin-top:10px; display:none;"></p>
-                  </div>
-                </div>
-
               </div>
-
               <div id="themes" class="tab-content" style="display: none;">
                 <div style="margin-bottom:10px;">
                   <input id="themeSearch" type="text" placeholder="Поиск темы..." style="width:92%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:rgba(0,0,0,0.18);color:var(--text);outline:none;">
@@ -48587,6 +48590,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
           window.NovapackValues.winsInNicknameToggle === true ? toggleSwitch(winsInNicknameToggle) : null;
           window.NovapackValues.hideLogoToggle === true ? toggleSwitch(hideLogoToggle) : null;
           window.NovapackValues.opponentLavaBarToggle === true ? toggleSwitch(opponentLavaBarToggle) : null;
+          window.NovapackValues.opponentWaterBarToggle === true ? toggleSwitch(opponentWaterBarToggle) : null;
           window.NovapackValues.underwaterAnimalsToggle === true ? toggleSwitch(underwaterAnimalsToggle) : null;
           window.NovapackValues.arenaProgressAlwaysToggle === true ? toggleSwitch(arenaProgressAlwaysToggle) : null;
           window.NovapackValues.botEnabled === true ? toggleSwitch(botToggle) : null;
@@ -50483,7 +50487,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
               window.NovapackValues.renderParts[renderPart] = renderDisabled ? false : true;
               element.setAttribute('aria-checked', renderDisabled ? 'true' : 'false');
             }
-            const options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+            const options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
             var elemSelected = -1;
             for (var item of options) {
               if (element.classList.contains(`switch-${item}`)) elemSelected = item;
@@ -50614,7 +50618,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                 break;
               case 29: window.NovapackValues.damageNumbersToggle = element.classList.contains('active'); break;
               case 30: window.NovapackValues.dynamicHealthColorsToggle = element.classList.contains('active'); break;
-              case 31: window.NovapackValues.movementPredictionToggle = element.classList.contains('active'); break;
+              case 31: window.NovapackValues.movementPredictionToggle = element.classList.contains(\'active\'); break;\n              case 32: window.NovapackValues.opponentWaterBarToggle = element.classList.contains(\'active\'); break;
               default:
                 break;
             }
@@ -50813,16 +50817,16 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const hideButton = document.getElementById("nvMenuHideBtn");
 
             const NV_TAB_META = {
-              "tab-game": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 17.5L16 16"/></svg>`, eng: "Combat", russ: "Бой" },
-              "tab-skins": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`, eng: "Skins", russ: "Скины" },
-              "tab-arena": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`, eng: "Movement", russ: "Движение" },
-              "tab-customization": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`, eng: "Player", russ: "Игрок" },
-              "tab-visuals": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`, eng: "Render", russ: "Рендер" },
-              "tab-keybinds": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6" y2="8"></line><line x1="10" y1="8" x2="10" y2="8"></line><line x1="14" y1="8" x2="14" y2="8"></line><line x1="18" y1="8" x2="18" y2="8"></line><line x1="8" y1="12" x2="8" y2="12"></line><line x1="12" y1="12" x2="12" y2="12"></line><line x1="16" y1="12" x2="16" y2="12"></line><line x1="7" y1="16" x2="17" y2="16"></line></svg>`, eng: "Keybinds", russ: "Клавиши" },
-              "tab-misc": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`, eng: "Misc", russ: "Разное" },
-              "tab-party": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`, eng: "Party", russ: "Пати" },
-              "tab-themes": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>`, eng: "Themes", russ: "Темы" },
-              "tab-bot": { icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`, eng: "Bot", russ: "Бот" }
+              "tab-game": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 17.5L16 16"/></svg>`, eng: "Combat", russ: "Бой" },
+              "tab-skins": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><path d="M19.439 7.85c-.049.322-.059.648-.029.975.114 1.281 1.053 2.524 2.227 3.037.19.083.407.127.625.127.067 0 .135-.004.201-.012l.142-.016c-.05.474-.11.947-.18 1.417-.185 1.258-.458 2.502-.816 3.714a16.89 16.89 0 01-1.392 3.329c-.66 1.155-1.428 2.245-2.296 3.257-.156.182-.387.279-.623.264-.236-.015-.452-.14-.582-.337l-.095-.143c-.495-.742-1.127-1.394-1.874-1.928-.747-.534-1.597-.936-2.516-1.19-.92-.254-1.89-.356-2.875-.3-1.026.059-2.036.311-2.969.742l-.155.071c-.22.102-.472.091-.68-.03-.207-.122-.34-.336-.358-.574l-.014-.17c-.035-.427-.087-.853-.156-1.277-.168-1.02-.386-2.034-.652-3.033A18.8 18.8 0 012.062 12c.005-.183.01-.366.015-.549.01-.371.026-.742.046-1.112l.013-.231c.014-.238.147-.453.355-.575.207-.122.459-.133.679-.03l.156.077c.92.418 1.916.66 2.927.708.972.046 1.93-.065 2.836-.328.905-.262 1.745-.675 2.484-1.222.739-.547 1.36-1.215 1.84-1.976l.092-.146c.125-.198.337-.324.57-.341.233-.016.463.078.621.258.878 1.002 1.657 2.08 2.33 3.22.484.819.92 1.666 1.303 2.536l.056.128z"/></svg>`, eng: "Skins", russ: "Скины" },
+              "tab-arena": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><circle cx="15.5" cy="5.5" r="2.5"/><path d="M7.333 11c1.554-.265 2.748-.4 3.582-.4M16 11l-3 4-2 7M22 17l-3.354-1.996a1.5 1.5 0 0 0-2.023.36l-3.089 4.31"/></svg>`, eng: "Movement", russ: "Движение" },
+              "tab-customization": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`, eng: "Player", russ: "Игрок" },
+              "tab-visuals": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><circle cx="13.5" cy="10.5" r="1.5"/><circle cx="17.5" cy="14.5" r="1.5"/><circle cx="9.5" cy="8.5" r="1.5"/><circle cx="8.5" cy="13.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.328-.475-.76-.475-1.235 0-.943.72-1.688 1.648-1.688H17c3.037 0 5-2.963 5-6.264C22 5.5 17.5 2 12 2z"/></svg>`, eng: "Render", russ: "Рендер" },
+              "tab-keybinds": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6" y2="8"></line><line x1="10" y1="8" x2="10" y2="8"></line><line x1="14" y1="8" x2="14" y2="8"></line><line x1="18" y1="8" x2="18" y2="8"></line><line x1="8" y1="12" x2="8" y2="12"></line><line x1="12" y1="12" x2="12" y2="12"></line><line x1="16" y1="12" x2="16" y2="12"></line><line x1="7" y1="16" x2="17" y2="16"></line></svg>`, eng: "Keybinds", russ: "Клавиши" },
+              "tab-misc": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>`, eng: "Misc", russ: "Разное" },
+              "tab-party": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`, eng: "Party", russ: "Пати" },
+              "tab-themes": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`, eng: "Themes", russ: "Темы" },
+              "tab-bot": { icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;overflow:visible;"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`, eng: "Bot", russ: "Бот" }
             };
             const NV_UI_TEXT = {
               eng: {
@@ -51015,6 +51019,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   "Устанавливает ограничение FPS",
                   "Всегда показывает прогресс арены",
                   "Показывает полоску лавы противника",
+                  "Показывает полоску воды противника",
                   "Включает и выключает бота",
                   "Показывает куда целится бот",
                   "Активирует прыжки бота",
