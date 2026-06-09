@@ -10869,6 +10869,7 @@ const a0_0x2e3cbd = {
       }
       MAIN_CANVAS.restore();
       this.drawInfectionBar();
+      if(typeof this.drawLavaBar === "function") this.drawLavaBar();
       if(typeof this.drawWaterBar === "function") this.drawWaterBar();
     };
     _0x4d38fd.prototype.apexWaterA = 0;
@@ -14032,6 +14033,7 @@ const a0_0x2e3cbd = {
     _0x205beb.prototype.drawHealthBar = function () {
       _0x205beb.superClass.prototype.drawHealthBar.call(this);
       this.drawInfectionBar();
+      if(typeof this.drawLavaBar === "function") this.drawLavaBar();
       if(typeof this.drawWaterBar === "function") this.drawWaterBar();
     };
 
