@@ -151,7 +151,8 @@ const NV_BOT_MODE_PRESETS = {
     cord: {
       x: 0,
       y: 0
-    }, futen: 3, futmy: 0, boosted: 0, name: "mope.io", speed: 2.15, angen: 2, angmy: 0, bp: 0, tdist: 2.5, angdelta: Math.PI * 0.9, angmin: Math.PI / 2, bas: 0, ping: 0.35, jump: 1, angstat: Math.PI / 3 },
+    },
+  legit: { attack: 1, blocker: 0, cord: { x: 0, y: 0 }, futen: 3, futmy: 0, boosted: 0, name: "mope.io", speed: 2.15, angen: 2, angmy: 0, bp: 0, tdist: 2.5, angdelta: Math.PI * 0.9, angmin: Math.PI / 2, bas: 0, ping: 0.35, jump: 1, angstat: Math.PI / 3 },
     futen: 3,
     futmy: 0,
     boosted: 0,
@@ -42052,6 +42053,8 @@ const a0_0x2e3cbd = {
           __botLastSend = now;
           let _0xattackPos = attackf(_0x9052ea);
         
+        
+        
         if (_0xattackPos && Number.isFinite(_0xattackPos.x) && Number.isFinite(_0xattackPos.y)) {
             _0x448947 = _0xattackPos.x; _0x3bff98 = _0xattackPos.y; window.botTargetWorldX = _0xattackPos.x; window.botTargetWorldY = _0xattackPos.y;
             mes = new _0x225b1f(5);
@@ -47172,8 +47175,7 @@ function installDamageNumbers() {
                         <div class="nv-bot-mode-switch" id="nvBotModeSwitch">
                           <button type="button" class="nv-bot-mode-btn active" data-bot-mode="attack">Attack</button>
                           <button type="button" class="nv-bot-mode-btn" data-bot-mode="anti-bot">Anti-bot</button>
-                          
-                        </div>
+                          </div>
                       </div>
 
                       <div class="control-item">
@@ -50812,16 +50814,16 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const hideButton = document.getElementById("nvMenuHideBtn");
 
             const NV_TAB_META = {
-              "tab-game": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m14.5 17.5 3 3a2.12 2.12 0 0 0 3-3l-3-3\"/><path d=\"m13 19-3-3\"/><path d=\"m16 16-3-3\"/><path d=\"m19 13-3-3\"/><path d=\"m21 21-1-1\"/><path d=\"m3 3 18 18\"/><path d=\"M9.5 6.5 6.5 9.5 2 5l1.5-1.5L5 2l4.5 4.5Z\"/></svg>", eng: "Combat", russ: "Бой" },
-              "tab-skins": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611c-.471.47-1.088.706-1.705.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18-.894-.527-.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568c-.47-.47-.706-1.087-.706-1.704s.235-1.233.706-1.704l1.611-1.611a.98.98 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.61-1.611c.471-.47 1.088-.706 1.705-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z\"/></svg>", eng: "Skins", russ: "Скины" },
-              "tab-arena": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 8h1a4 4 0 0 1 0 8h-1\"/><path d=\"M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z\"/><line x1=\"6\" y1=\"1\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"1\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"1\" x2=\"14\" y2=\"4\"/></svg>", eng: "Movement", russ: "Движение" },
-              "tab-customization": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>", eng: "Player", russ: "Игрок" },
-              "tab-visuals": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"13.5\" cy=\"6.5\" r=\".5\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/></svg>", eng: "Render", russ: "Рендер" },
-              "tab-keybinds": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\" ry=\"2\"/><path d=\"M6 8h.001\"/><path d=\"M10 8h.001\"/><path d=\"M14 8h.001\"/><path d=\"M18 8h.001\"/><path d=\"M8 12h.001\"/><path d=\"M12 12h.001\"/><path d=\"M16 12h.001\"/><path d=\"M7 16h10\"/></svg>", eng: "Keybinds", russ: "Клавиши" },
-              "tab-misc": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>", eng: "Misc", russ: "Разное" },
-              "tab-party": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/></svg>", eng: "Party", russ: "Пати" },
-              "tab-themes": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"/><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"/></svg>", eng: "Themes", russ: "Темы" },
-              "tab-bot": { icon: "<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 8V4H8\"/><rect x=\"4\" y=\"8\" width=\"16\" height=\"12\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg>", eng: "Bot", russ: "Бот" }
+              "tab-game": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 17.5L16 16"/></svg>', eng: "Combat", russ: "Бой" },
+              "tab-skins": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>', eng: "Skins", russ: "Скины" },
+              "tab-arena": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M13 4v16M17 8l-4-4-4 4M17 16l-4 4-4-4"/></svg>', eng: "Movement", russ: "Движение" },
+              "tab-customization": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>', eng: "Player", russ: "Игрок" },
+              "tab-visuals": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20z"/><path d="M2 12h20"/></svg>', eng: "Render", russ: "Рендер" },
+              "tab-keybinds": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M3 5h18v14H3zM7 9h.01M12 9h.01M17 9h.01M7 13h.01M12 13h.01M17 13h.01M10 17h4"/></svg>', eng: "Keybinds", russ: "Клавиши" },
+              "tab-misc": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>', eng: "Misc", russ: "Разное" },
+              "tab-party": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', eng: "Party", russ: "Пати" },
+              "tab-themes": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>', eng: "Themes", russ: "Темы" },
+              "tab-bot": { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16v.01M16 16v.01"/></svg>', eng: "Bot", russ: "Бот" }
             };
             const NV_UI_TEXT = {
               eng: {
@@ -51258,7 +51260,7 @@ animation: novaGlow 4200ms ease-in-out infinite;
                   border-radius:11px;
                   font-size: 14px;
                   color: #fff;
-                  background: transparent 72%, #fff 28%), color-mix(in srgb, var(--primary-2) 78%, #fff 22%));
+                  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 72%, #fff 28%), color-mix(in srgb, var(--primary-2) 78%, #fff 22%));
                   box-shadow: 0 12px 28px color-mix(in srgb, var(--glow) 64%, transparent);
                   flex: 0 0 auto;
                 }
@@ -51955,7 +51957,22 @@ animation: novaGlow 4200ms ease-in-out infinite;
             const brand = document.createElement("div");
             brand.className = "nv-header-brand";
             brand.innerHTML = `
-              <div class="nv-header-logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><circle cx="50" cy="50" r="48" fill="#0c0c0c" stroke="#333" stroke-width="2"/><path d="M50 15 Q50 45 15 50 Q50 55 50 85 Q50 55 85 50 Q50 45 50 15 Z" fill="#fff"/><circle cx="50" cy="50" r="12" fill="#fff" filter="blur(3px)" opacity="0.6"/><circle cx="30" cy="30" r="1.5" fill="#fff" opacity="0.8"/><circle cx="70" cy="25" r="1.2" fill="#fff" opacity="0.9"/><circle cx="25" cy="70" r="1" fill="#fff" opacity="0.7"/><circle cx="75" cy="75" r="1.5" fill="#fff" opacity="0.8"/><circle cx="15" cy="45" r="1" fill="#fff" opacity="0.5"/><circle cx="85" cy="55" r="1.2" fill="#fff" opacity="0.6"/><circle cx="45" cy="15" r="0.8" fill="#fff" opacity="0.8"/><circle cx="55" cy="85" r="1" fill="#fff" opacity="0.7"/></svg></div>
+              <div class="nv-header-logo" style="padding:0;background:transparent;box-shadow:none;border:none;"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:11px;">
+                    <rect width="100" height="100" fill="#09090b"/>
+                    <path d="M50 8 C50 35, 65 50, 92 50 C65 50, 50 65, 50 92 C50 65, 35 50, 8 50 C35 50, 50 35, 50 8 Z" fill="#fff" filter="drop-shadow(0 0 6px rgba(255,255,255,0.9))"/>
+                    <!-- Background starburst glowing rays -->
+                    <path d="M50 20 L55 45 L80 50 L55 55 L50 80 L45 55 L20 50 L45 45 Z" fill="rgba(255,255,255,0.4)" filter="blur(2px)"/>
+                    <path d="M50 28 L53 47 L72 50 L53 53 L50 72 L47 53 L28 50 L47 47 Z" fill="rgba(255,255,255,0.6)" filter="blur(1px)"/>
+                    <!-- Ambient cosmic stars -->
+                    <circle cx="20" cy="20" r="1.5" fill="#fff" opacity="0.6"/>
+                    <circle cx="80" cy="25" r="2" fill="#fff" opacity="0.8"/>
+                    <circle cx="25" cy="80" r="1" fill="#fff" opacity="0.5"/>
+                    <circle cx="75" cy="85" r="1.5" fill="#fff" opacity="0.7"/>
+                    <circle cx="85" cy="65" r="1" fill="#fff" opacity="0.4"/>
+                    <circle cx="15" cy="60" r="1.5" fill="#fff" opacity="0.9"/>
+                    <circle cx="35" cy="25" r="1" fill="#fff" opacity="0.6"/>
+                    <circle cx="65" cy="75" r="1.2" fill="#fff" opacity="0.8"/>
+                </svg></div>
               <div class="nv-brand-copy">
                 <div class="nv-brand-title"></div>
                 <div class="nv-brand-subtitle"></div>
