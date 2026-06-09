@@ -44317,7 +44317,7 @@ e.referrerPolicy = "no-referrer";
     function _0xnovaNormalizeServerModpack(_0xvalue) {
       const _0xtext = String(_0xvalue || "").trim().toLowerCase();
       if (_0xtext === "novapack" || _0xtext === "nova" || _0xtext === "nv") return "novapack";
-      if (_0xtext === "psychomodepack" || _0xtext === "psycho" || _0xtext === "pm" || _0xtext === "otvrat") return "psychomodepack";
+      if (_0xtext === "novapack" || _0xtext === "nova" || _0xtext === "nv" || _0xtext === "omriex") return "novapack";
       return "";
     }
 
